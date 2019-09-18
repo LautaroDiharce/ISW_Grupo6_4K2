@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DeliverEat", "DeliverEat\DeliverEat.vbproj", "{48E4BCE5-B3DF-4D5D-9A37-E562680525B7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48E4BCE5-B3DF-4D5D-9A37-E562680525B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48E4BCE5-B3DF-4D5D-9A37-E562680525B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48E4BCE5-B3DF-4D5D-9A37-E562680525B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48E4BCE5-B3DF-4D5D-9A37-E562680525B7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0D26FCA6-4058-41E9-A8CA-DDC9AC9FB3BE}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>DeliverEat - Finalizar Pedido</title>
+    <!-- Importación de Bootstrap 4 -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Importación de Jquery -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Importación de FontsAwesome -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Importación de DateTimePicker de Bootstrap -->
+    <link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Referencia a la Hoja de Estilos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Inicio de NavBar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">DeliverEat</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+                <ul class="navbar-nav m-auto">
+                    <li class="nav-item m-auto">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="category.html">Categorias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="product.html">Productos</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="contact.html">Carrito<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contacto</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Comidas...">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-secondary btn-number">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="btn btn-success btn-sm ml-3" href="cart.html">
+                        <i class="fa fa-shopping-cart"></i> Carrito
+                        <span class="badge badge-light">3</span>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Fin de NavBar -->
+
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Finalizar Pedido</h2>
+        </div>
+        <div class="row">
+            <!-- Inicio del carrito -->
+            <div class="col-md-4 order-md-2 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text">Tu Carrito</span>
+                </h4>
+                <button id="agregarItem" style="margin-bottom: 10px" type="button" class="btn btn-success">Agregar item</button>
+                <button id="quitarItem" style="margin-bottom: 10px" type="button" class="btn btn-danger">Vaciar Carrito</button>
+                <ul id="listaCarrito" class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">Lomo Completo</h6>
+                            <small class="text-muted">Lomo, queso, huevo, tomate, lechuga, mayonesa, jamón.</small>
+                        </div>
+                        <span class="text-muted precio">120</span>
+
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">Lomo Americano</h6>
+                            <small class="text-muted">Lomo, cebolla salteada, queso, huevo revuelto, panceta, mayonesa y salsa BBQ.</small>
+                        </div>
+                        <span class="text-muted precio ">180</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <h6 class="my-0">Lomo Vegano</h6>
+                            <small class="text-muted">Berenjena, tomate, lechuga, huevo, queso y mayonesa.</small>
+                        </div>
+                        <span class="text-muted precio">100</span>
+                    </li>
+                </ul>
+
+                <form class="card p-2">
+                    <div id="totalCarrito" class="text-right">
+                    </div>
+                </form>
+            </div>
+            <!-- Fin del carrito -->
+            <!-- Inicio formulario del usuario -->
+            <div class="col-md-8 order-md-1">
+                <h4 class="mb-3">A dónde te lo enviamos?</h4>
+                <form class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="address">Dirección</label>
+                        <input type="text" class="form-control" id="address" placeholder="Av. Chacabuco 123" required>
+                        <div class="invalid-feedback">
+                            Ingrese una dirección válida.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address2">Referencia <span class="text-muted">(Opcional)</span></label>
+                        <input type="text" class="form-control" id="address2" placeholder="Entre Obispo Oro y San Lorenzo">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="country">Ciudad</label>
+                            <select class="custom-select d-block w-100" id="country" required>
+                                <option value="">Elegir...</option>
+                                <option>Córdoba</option>
+                                <option>Buenos Aires</option>
+                                <option>Santa Fe</option>
+                                <option>San Luis</option>
+                                <option>Salta</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Seleccione una ciudad válida.
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr class="mb-4">
+                    <h4 class="mb-3">Cuando lo querés?</h4>
+
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="asap" name="cuandoSet" value="asap" type="radio" class="custom-control-input" checked required>
+                            <label class="custom-control-label" for="asap">Lo antes posible</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="fechahs" name="cuandoSet" value="fechahs" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="fechahs">Fecha/Hora</label>
+                        </div>
+                        <div class="envio">
+                            <input type="text" class="form-control d-block my-3 col-md-6 mb-3" id="datetime">
+                        </div>
+
+                        <script>
+                            $("#datetime").datetimepicker({
+                                format: 'dd/mm hh:ii',
+                                autoclose: true
+                            });
+                        </script>
+
+                    </div>
+                    <hr class="mb-4">
+                    <h4 class="mb-3">Pago</h4>
+
+                    <div class="d-block my-3">
+                        <div class="custom-control custom-radio">
+                            <input id="credit" name="pagoSet" value="efe" type="radio" class="custom-control-input" checked required>
+                            <label class="custom-control-label" for="credit">Efectivo</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="debit" name="pagoSet" value="visa" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="debit">Tarjeta Visa</label>
+                        </div>
+                    </div>
+                    <div class="row efe">
+                        <div class="col-md-6 mb-3">
+                            <label for="efectivo">Con cuánto abonás?</label>
+                            <input type="text" class="form-control" id="efectivo" placeholder="" required>
+                            <small class="text-muted">Ej: 200</small>
+                            <div class="invalid-feedback">
+                                El monto es requerido.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row visa">
+                        <div class="col-md-6 mb-3">
+                            <label for="cc-name">Nombre del Titular</label>
+                            <input type="text" class="form-control" id="cc-name" placeholder="" required>
+                            <small class="text-muted">María del Valle de las Asturias</small>
+                            <div class="invalid-feedback">
+                                El nombre en la tarjeta es requerido.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="cc-number">Número de tarjeta</label>
+                            <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                            <small class="text-muted">1234 4567 7891 4567</small>
+                            <div class="invalid-feedback">
+                                El número de la tarjeta es requerido.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row visa">
+                        <div class="col-md-3 mb-3">
+                            <label for="cc-expiration">Vencimiento</label>
+                            <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                            <small class="text-muted">12/2024</small>
+                            <div class="invalid-feedback">
+                                La fecha de expiración es requerida.
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="cc-expiration">CVV</label>
+                            <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                            <small class="text-muted">655</small>
+                            <div class="invalid-feedback">
+                                El código de seguridad es requerido.
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Finalizar</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        
+    </script>
+    <!-- Referencia al archivo contenedor de los scripts -->
+    <script src="js/scripts.js"></script>
+
+    <!-- Footer -->
+    <footer class="text-light" style="margin-top: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-lg-6 col-xl-5">
+                    <h5>Acerca</h5>
+                    <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                    <p class="mb-0">
+                        Trabajo Práctico N°6
+                        Implementación de historia de usuario para grupo de número par - Realizar Pedido a un Comercio adherido
+                    </p>
+                </div>
+
+
+                <div class="col-md-4 col-lg-3 col-xl-3">
+                    <h5>Grupo 6</h5>
+                    <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                    <ul class="list-unstyled">
+                        <li>Tamara Nicole Soria – 69684</li>
+                        <li>Gastón Cabrera – 67051</li>
+                        <li>Lautaro Diharce Paz – 70693</li>
+                        <li>Facundo Mallia – 67781</li>
+                        <li>Gastón Luis Vottero – 68753</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
