@@ -58,3 +58,6 @@ C:\Users\facum\source\repos\DeliverEat\DeliverEat\obj\Debug\DeliverEat.vbproj.Co
 C:\Users\facum\source\repos\DeliverEat\DeliverEat\obj\Debug\DeliverEat.dll
 C:\Users\facum\source\repos\DeliverEat\DeliverEat\obj\Debug\DeliverEat.xml
 C:\Users\facum\source\repos\DeliverEat\DeliverEat\obj\Debug\DeliverEat.pdb
+D:\Tamara\Documents\UTN\4toaño\ISW\ISW_4K2_G6\ISW_Grupo6_4K2\ISW_Grupo6_4k2\Practicos\TP6\Resolucion_06_ImplementacionHistoriaDeUsuario\DeliverEat\obj\Debug\DeliverEat.dll
+D:\Tamara\Documents\UTN\4toaño\ISW\ISW_4K2_G6\ISW_Grupo6_4K2\ISW_Grupo6_4k2\Practicos\TP6\Resolucion_06_ImplementacionHistoriaDeUsuario\DeliverEat\obj\Debug\DeliverEat.xml
+D:\Tamara\Documents\UTN\4toaño\ISW\ISW_4K2_G6\ISW_Grupo6_4K2\ISW_Grupo6_4k2\Practicos\TP6\Resolucion_06_ImplementacionHistoriaDeUsuario\DeliverEat\obj\Debug\DeliverEat.pdb
