@@ -4,6 +4,10 @@
     font-weight: bold;
     font-size: 150%;
 }
+#map{
+    width: 400px;
+    height: 400px;
+}
 
 .category_block li:hover {
     background-color: #007bff;

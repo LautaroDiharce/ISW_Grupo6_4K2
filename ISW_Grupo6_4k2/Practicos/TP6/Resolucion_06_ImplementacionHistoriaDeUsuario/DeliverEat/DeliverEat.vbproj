@@ -99,7 +99,7 @@
     <Content Include="img\vegetal.jpg" />
     <Content Include="js\bootstrap-datetimepicker.min.js" />
     <Content Include="js\scripts.js" />
-    <Content Include="styles.css" />
+    <Content Include="css\styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

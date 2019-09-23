@@ -3,72 +3,25 @@
 <head>
     <meta charset="utf-8" />
     <title>DeliverEat - Finalizar Pedido</title>
+
     <!-- Importación de Jquery -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Importación de Bootstrap 4 -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+    <script async 
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxqPS7gNBS_-U4G1RSoGyYw3H2EtKgFTI&libraries=places">
+    </script>
     <!-- Importación de FontsAwesome -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Importación de DateTimePicker de Bootstrap -->
     <link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
     <script src="js/bootstrap-datetimepicker.min.js"></script>
 
-    <script>
-        function initMap() { } // now it IS a function and it is in global
-
-        $(() => {
-            initMap = function () {
-                var map, infoWindow;
-                function initMap() {
-                    map = new google.maps.Map(document.getElementById('map'), {
-                        center: { lat: -34.397, lng: 150.644 },
-                        zoom: 6
-                    });
-                    infoWindow = new google.maps.InfoWindow;
-
-                    // Try HTML5 geolocation.
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function (position) {
-                            var pos = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude
-                            };
-
-                            infoWindow.setPosition(pos);
-                            infoWindow.setContent('Location found.');
-                            infoWindow.open(map);
-                            map.setCenter(pos);
-                        }, function () {
-                            handleLocationError(true, infoWindow, map.getCenter());
-                        });
-                    } else {
-                        // Browser doesn't support Geolocation
-                        handleLocationError(false, infoWindow, map.getCenter());
-                    }
-                }
-
-                function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-                    infoWindow.open(map);
-                }
-            }
-        })
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPXGhR0VP3gz18DxM1KgFVUdzcguwZJjU&callback=initMap">
-    </script>
-
-
     <!-- Referencia a la Hoja de Estilos -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-
 
     <!-- Inicio de NavBar -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -123,7 +76,7 @@
             <!-- Inicio formulario del usuario -->
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">A dónde te lo enviamos?</h4>
-                <form class="needs-validation" novalidate>
+                <form id="userForm" class="needs-validation" novalidate>
                     <div class="mb-3">
                         <label for="address">Dirección</label>
                         <input type="text" class="form-control" id="address" placeholder="Av. Chacabuco 123" ng-model="direccion" required>
@@ -152,9 +105,7 @@
                                 Seleccione una ciudad válida.
                             </div>
                         </div>
-
                     </div>
-
 
                     <hr class="mb-4">
                     <h4 class="mb-3">Cuando lo querés?</h4>
@@ -196,7 +147,7 @@
                     <div class="row efe">
                         <div class="col-md-6 mb-3">
                             <label for="efectivo">Con cuánto abonás?</label>
-                            <input type="text" class="form-control" id="efectivo" placeholder="" required>
+                            <input type="text" class="form-control" name="montoEfectivoo" id="efectivo" placeholder="" required>
                             <small class="text-muted">Ej: 200</small>
                             <div class="invalid-feedback">
                                 El monto es requerido.
@@ -240,7 +191,7 @@
                         </div>
                     </div>
                     <hr class="mb-4">
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Finalizar</button>
+                    <button id="Evniar" class="btn btn-primary btn-lg btn-block" type="submit">Finalizar</button>
                 </form>
 
             </div>
@@ -248,15 +199,9 @@
             <div class="col-md-4 order-md-2 mb-4">
                 <!-- Inicio Google maps -->
                 <!-- Mapa -->
-                <div id="map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13624.914338136074!2d-64.18331629999999!3d-31.3802601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1569071315768!5m2!1ses-419!2sar"
-                            width="400"
-                            height="300">
-                    </iframe>
-                </div>
-
-                
+                <div id="map"></div>
                 <!-- Fin google maps -->
+
                 <!-- Inicio del carrito -->
                 <div>
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -264,7 +209,7 @@
                     </h4>
                     <button id="agregarItem" style="margin-bottom: 10px" type="button" class="btn btn-success">Agregar item</button>
                     <button id="quitarItem" style="margin-bottom: 10px" type="button" class="btn btn-danger">Vaciar Carrito</button>
-                    <ul id="listaCarrito" class="list-group mb-3">
+                    <ul id="listaCarrito" class="list-group mb-3" >
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <h6 class="my-0">Lomo Completo</h6>
@@ -288,7 +233,7 @@
                             <span class="text-muted precio">100</span>
                         </li>
                     </ul>
-
+                  
                     <form class="card p-2">
                         <div id="totalCarrito" class="text-right">
                         </div>
