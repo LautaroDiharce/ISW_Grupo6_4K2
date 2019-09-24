@@ -2,13 +2,17 @@
     //Funcion para mostrar/ocultar las opciones seleccionadas por los radio buttons
     $('input[type="radio"]').click(function () {
         //validación para el método de pago
-        if ($(this).attr("value") == "efe") {
-            $(".efe").show('slow');
-            $(".visa").hide('slow');
+        if ($(this).attr("value") == "efeRBtn") {
+            $(".efeRBtn").remove();//limpio el div
+            //agrego el div correspondiente
+            $("#ultimaFila").append('<div class="row efeRBtn"><div class= "col-md-6 mb-3"><label for="montoEfectivo">Con cuánto abonás?</label><input type="text" class="form-control" id="montoEfectivo" placeholder="" ><small class="text-muted">Ej: 200</small>');
+            $(".visa").remove(); // remuevo el div no correspondiente a la opcion
         }
         if ($(this).attr("value") == "visa") {
-            $(".efe").hide('slow');
-            $(".visa").show('slow');
+            $(".visa").remove(); //limpio el div
+            //agrego el div correspondiente
+            $("#ultimaFila").append('<div class="row visa"><div class= "col-md-6 mb-3" ><label for="cc-name">Nombre del Titular</label><input type="text" class="form-control" id="cc-name" placeholder="" required><small class="text-muted">María del Valle de las Asturias</small></div><div class="col-md-6 mb-3"><label for="cc-number">Número de tarjeta</label><input type="text" class="form-control" id="cc-number" placeholder="" required><small class="text-muted">1234 4567 7891 4567</small></div></div><div class="row visa"><div class="col-md-3 mb-3"><label for="cc-expiration">Vencimiento</label><input type="text" class="form-control" id="cc-expiration" placeholder="" required><small class="text-muted">12/2024</small></div><div class="col-md-3 mb-3"><label for="cc-expiration">CVV</label><input type="text" class="form-control" id="cc-cvv" placeholder="" required><small class="text-muted">655</small></div></div>');
+            $(".efeRBtn").remove(); // remuevo el div no correspondiente a la opcion
 
         }
         //validación para la fecha de envío
@@ -54,63 +58,112 @@
         $('#totalCarrito').html('<strong> Total: $ ' + sum + '</strong>');  
     };
 
-    ////Función para invalidar el envío del formulario si hay algun campo incorrecto
-    //(function () {
-    //    'use strict';
-    //    window.addEventListener('load', function () {
-    //        // Buscar todos los elementos que requieran validación
-    //        var forms = document.getElementsByClassName('needs-validation');
-    //        // Loop sobre los elementos y evitar el envío del formulario
-    //        var validation = Array.prototype.filter.call(forms, function (form) {
-    //            form.addEventListener('submit', function (event) {
-    //                if (form.checkValidity() === false) {
-    //                    event.preventDefault();
-    //                    event.stopPropagation();
-    //                } 
-    //                if ($('#listaCarrito li').length === 0) {
-    //                    alert("Debe haber por lo menos 1 producto en el carrito!");
-    //                    return false;
-    //                } 
-    //                form.classList.add('was-validated');
-                   
-    //            }, false);
-    //        });
-    //    }, false);
-        
-    //})();
-
+    //Asociar evento de click del boton Enviar al comportamiento del formulario
     $("#Evniar").click(function () {
-        validar();
-
+        enviarForm();
     });
 
     //función que inicializa el google maps
     initialization() 
 
-
+  
     
 });
-function validar() {
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop sobre los elementos y evitar el envío del formulario
+//Función de envío del formulario y notificación al usuario
+function enviarForm() {
+    valido = validarFormulario();
+    if (valido) {
+        alert("Pedido confirmado!");
+    } else {
+        alert("Datos erróneos, vuelva a ingresarlos!");
+    }
+}
+//Definición de variable para validar los datos
+var valido = false;
+//Función para validar los datos del Form
+function validarFormulario() {
+
+    var forms = document.getElementsByClassName("needs-validation");
+    // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function (form) {
-        form.addEventListener('submit', function (event) {
-            if (form.checkValidity() === false) {
-                form.classList.add('noValido');
-                event.preventDefault();
-                event.stopPropagation();  
-            }
-            form.classList.add('was-validated');
-            
-        }, false);
     });
+    //Validar que por lo menos haya 1 elemento en el carrito
     if ($('#listaCarrito li').length === 0) {
         alert("Debe haber por lo menos 1 producto en el carrito!");
         return false;
     }
+    //Retomo los inputs del form
+    let direccion = document.querySelector("#direccion");
+    let ciudad = document.querySelector("#ciudad");
+    let fechahora = document.querySelector("#datetime");
+    let efectivo = document.querySelector("#montoEfectivo");
+    let ntarjeta = document.querySelector("#cc-name");
+    let numtarjeta = document.querySelector("#cc-number");
+    let nexp = document.querySelector("#cc-expiration");
+    let ncvv = document.querySelector("#cc-cvv");
+    let fechahs = document.querySelector("#datetime");
+    //Chekeo si son válidos los campos y la selección en efectivo
+    if (document.getElementById('efectivoRBtn').checked) {
+        if (direccion.checkValidity() === true && ciudad.checkValidity() === true && fechahora.checkValidity() === true && efectivo.checkValidity() === true && fechahs.checkValidity() === true) {
 
+            return validarMontoPago();
+        }
+        //Chekeo si son válidos los campos y a selección de tarjeta.
+    } else if (document.getElementById('debitRBtn').checked) {
+        if (direccion.checkValidity() === true && ciudad.checkValidity() === true && fechahora.checkValidity() === true && ntarjeta.checkValidity() === true && numtarjeta.checkValidity() === true && nexp.checkValidity() === true && ncvv.checkValidity() === true && fechahs.checkValidity() === true) {
+            tarjVencida = validarFechaExpTarjeta();
+            tarjValida = validarTarjetaVisa();
+            if (tarjValida === true && tarjVencida === true) {
+                return true;
+            }
+        } 
+    }
+    return false;
 }
 
+function validarMontoPago() {
+    var monto = document.getElementById("montoEfectivo").value;
+    if (monto === "") {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function validarFechaExpTarjeta() {
+    var expiryDate = document.getElementById("cc-expiration").value;
+    var today = new Date(); // gets the current date
+    var today_mm = today.getMonth() + 1; // extracts the month portion
+    var today_yy = today.getFullYear(); // extracts the year portion and changes it from yyyy 
+
+    if (today_mm < 10) { // if today's month is less than 10
+        today_mm = '0' + today_mm // prefix it with a '0' to make it 2 digits
+    }
+
+    var mm = expiryDate.substring(0, 2); // get the mm portion of the expiryDate (first two characters)
+    var yy = expiryDate.substring(3); // get the yy portion of the expiryDate (from index 3 to end)
+
+    if (yy > today_yy || (yy == today_yy && mm >= today_mm)) {
+        // all good because the yy from expiryDate is greater than the current yy
+        // or if the yy from expiryDate is the same as the current yy but the mm
+        // from expiryDate is greater than the current mm
+        return true;
+    }
+    else {
+        alert("Tarjeta Vencida!");
+        return false;
+    }
+}
+//Validación de tarjeta Visa
+function validarTarjetaVisa() {
+    myCardNo = document.getElementById('cc-number').value;
+    myCardName = 'Visa';
+    if (checkCreditCard(myCardNo, myCardName)) {
+        alert("Es una tarjeta Visa. Pago Aceptado!");
+        return true;
+    }
+    else { alert(ccErrors[ccErrorNo]); return false; };
+}
 //Definicion de variables globales para el google maps
 var latLng;
 var zoom;
@@ -140,8 +193,8 @@ function initialization() {
         map: map,
         draggable: true
     });
-    //Bindeo e inicialización del searchBox con el div address
-    var searchBox = new google.maps.places.SearchBox(document.getElementById('address'));
+    //Bindeo e inicialización del searchBox con el div direccion
+    var searchBox = new google.maps.places.SearchBox(document.getElementById('direccion'));
     //Agregado del "escuchador" para cuando cambia el lugar en el searchBox de direcciones.
     google.maps.event.addListener(searchBox, 'places_changed', function () {
         //Variable para la toma del valor del searchBox

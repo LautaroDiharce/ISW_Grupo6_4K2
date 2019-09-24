@@ -97,7 +97,10 @@
     <Content Include="img\americano.jpg" />
     <Content Include="img\completo.jpg" />
     <Content Include="img\vegetal.jpg" />
+    <Content Include="js\bootbox.js" />
     <Content Include="js\bootstrap-datetimepicker.min.js" />
+    <Content Include="js\creditcard.js" />
+    <Content Include="js\parsley.min.js" />
     <Content Include="js\scripts.js" />
     <Content Include="css\styles.css" />
     <Content Include="Web.config" />

@@ -17,7 +17,6 @@
     <!-- Importación de DateTimePicker de Bootstrap -->
     <link href="css/bootstrap-datetimepicker.css" rel="stylesheet">
     <script src="js/bootstrap-datetimepicker.min.js"></script>
-
     <!-- Referencia a la Hoja de Estilos -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -42,7 +41,7 @@
                         <a class="nav-link" href="product.html">Productos</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="contact.html">Carrito<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="Chekout.html">Carrito<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="contact.html">Contacto</a>
@@ -69,7 +68,7 @@
 
     <div class="container">
         <div class="py-5 text-center">
-            <h2>Finalizar Pedido Local Adherido</h2>
+            <h2>Finalizar Pedido Local Adherido - Betos</h2>
         </div>
         <div class="row">
 
@@ -77,56 +76,60 @@
             <div class="col-md-8 order-md-1">
                 <h4 class="mb-3">A dónde te lo enviamos?</h4>
                 <form id="userForm" class="needs-validation" novalidate>
-                    <div class="mb-3">
-                        <label for="address">Dirección</label>
-                        <input type="text" class="form-control" id="address" placeholder="Av. Chacabuco 123" ng-model="direccion" required>
-                        <div class="invalid-feedback">
-                            Ingrese una dirección válida.
-                        </div>
+                    <div class="mb-3 form-group">
+                        <label for="direccion">Dirección</label>
+                        <input type="text" class="form-control" id="direccion" placeholder="Ej: Av. Chacabuco 123" required>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="address2">Referencia <span class="text-muted">(Opcional)</span></label>
-                        <input type="text" class="form-control" id="address2" placeholder="Entre Obispo Oro y San Lorenzo">
+                    <div class="mb-3 form-group">
+                        <label for="referencia">Referencia <span class="text-muted">(Opcional)</span></label>
+                        <input type="text" class="form-control" id="referencia" placeholder="Ej: Entre Obispo Oro y San Lorenzo">
                     </div>
 
-                    <div class="row">
+                    <div class="row form-group">
                         <div class="col-md-5 mb-3">
-                            <label for="country">Ciudad</label>
-                            <select class="custom-select d-block w-100" id="country" required>
+                            <label for="ciudad">Ciudad</label>
+                            <select class="custom-select d-block w-100" id="ciudad" required>
                                 <option value="">Elegir...</option>
                                 <option>Córdoba</option>
                                 <option>Buenos Aires</option>
                                 <option>Santa Fe</option>
                                 <option>San Luis</option>
                                 <option>Salta</option>
+                                <option>Misiones</option>
+                                <option>San Juan</option>
+                                <option>Santa Cruz</option>
+                                <option>La Pampa</option>
+                                <option>Catamarca</option>
+                                <option>Santiago del Estero</option>
+                                <option>Jujuy</option>
                             </select>
-                            <div class="invalid-feedback">
-                                Seleccione una ciudad válida.
-                            </div>
                         </div>
                     </div>
 
                     <hr class="mb-4">
                     <h4 class="mb-3">Cuando lo querés?</h4>
 
-                    <div class="d-block my-3">
+                    <div class="d-block my-3 form-group">
                         <div class="custom-control custom-radio">
-                            <input id="asap" name="cuandoSet" value="asap" type="radio" class="custom-control-input" checked required>
-                            <label class="custom-control-label" for="asap">Lo antes posible</label>
+                            <input id="asapRBtn" name="cuandoSet" value="asap" type="radio" class="custom-control-input"  >
+                            <label class="custom-control-label" for="asapRBtn">Lo antes posible</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input id="fechahs" name="cuandoSet" value="fechahs" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="fechahs">Fecha/Hora</label>
+                            <input id="fechahsRBtn" name="cuandoSet" value="fechahs" type="radio" class="custom-control-input" checked >
+                            <label class="custom-control-label" for="fechahsRBtn">Fecha/Hora</label>
                         </div>
                         <div class="envio">
                             <input type="text" class="form-control d-block my-3 col-md-6 mb-3" id="datetime">
                         </div>
 
                         <script>
+                            var currDate = new Date();
                             $("#datetime").datetimepicker({
+                                startDate: currDate,
                                 format: 'dd/mm hh:ii',
                                 autoclose: true
+                                
                             });
                         </script>
 
@@ -134,60 +137,14 @@
                     <hr class="mb-4">
                     <h4 class="mb-3">Pago</h4>
 
-                    <div class="d-block my-3">
+                    <div class="d-block my-3 form-group" id="ultimaFila">
                         <div class="custom-control custom-radio">
-                            <input id="credit" name="pagoSet" value="efe" type="radio" class="custom-control-input" checked required>
-                            <label class="custom-control-label" for="credit">Efectivo</label>
+                            <input id="efectivoRBtn" name="pagoSet" value="efeRBtn" type="radio" class="custom-control-input" checked >
+                            <label class="custom-control-label" for="efectivoRBtn">Efectivo</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input id="debit" name="pagoSet" value="visa" type="radio" class="custom-control-input" required>
-                            <label class="custom-control-label" for="debit">Tarjeta Visa</label>
-                        </div>
-                    </div>
-                    <div class="row efe">
-                        <div class="col-md-6 mb-3">
-                            <label for="efectivo">Con cuánto abonás?</label>
-                            <input type="text" class="form-control" name="montoEfectivoo" id="efectivo" placeholder="" required>
-                            <small class="text-muted">Ej: 200</small>
-                            <div class="invalid-feedback">
-                                El monto es requerido.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row visa">
-                        <div class="col-md-6 mb-3">
-                            <label for="cc-name">Nombre del Titular</label>
-                            <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                            <small class="text-muted">María del Valle de las Asturias</small>
-                            <div class="invalid-feedback">
-                                El nombre en la tarjeta es requerido.
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="cc-number">Número de tarjeta</label>
-                            <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                            <small class="text-muted">1234 4567 7891 4567</small>
-                            <div class="invalid-feedback">
-                                El número de la tarjeta es requerido.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row visa">
-                        <div class="col-md-3 mb-3">
-                            <label for="cc-expiration">Vencimiento</label>
-                            <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                            <small class="text-muted">12/2024</small>
-                            <div class="invalid-feedback">
-                                La fecha de expiración es requerida.
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="cc-expiration">CVV</label>
-                            <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                            <small class="text-muted">655</small>
-                            <div class="invalid-feedback">
-                                El código de seguridad es requerido.
-                            </div>
+                            <input id="debitRBtn" name="pagoSet" value="visa" type="radio" class="custom-control-input" >
+                            <label class="custom-control-label" for="debitRBtn">Tarjeta Visa</label>
                         </div>
                     </div>
                     <hr class="mb-4">
@@ -249,7 +206,7 @@
 
     <!-- Referencia al archivo contenedor de los scripts -->
     <script src="js/scripts.js"></script>
-
+    <script src="js/creditcard.js"></script>
     <!-- Footer -->
     <footer class="text-light" style="margin-top: 20px;">
         <div class="container">
