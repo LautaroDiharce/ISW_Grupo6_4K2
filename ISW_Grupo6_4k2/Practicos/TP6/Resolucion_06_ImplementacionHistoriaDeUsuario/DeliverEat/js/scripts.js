@@ -108,15 +108,7 @@ function validar() {
         alert("Debe haber por lo menos 1 producto en el carrito!");
         return false;
     }
-    a();
-}
-function a() {
-    
-    if ($("#userForm").hasClass("noValido")) {
-        alert("nada");
-    } else {
-        alert("todo");
-    }
+
 }
 
 //Definicion de variables globales para el google maps
