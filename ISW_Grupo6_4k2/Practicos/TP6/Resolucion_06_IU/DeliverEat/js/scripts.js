@@ -43,20 +43,6 @@
 
     //Trigger inicial para el monto total del carrito
     $(calcularTotal);
-    function calcularTotal() {
-    var sum = 0;
-    // Iterar por cada elemento de la lista
-    $(".precio").each(function () {
-
-        var value = $(this).text();
-        // Hacer la suma sólo si es un valor numérico
-        if (!isNaN(value) && value.length != 0) {
-            sum += parseFloat(value);
-        }
-    });
-        //Asignar el valor al casillero del Total
-        $('#totalCarrito').html('<strong> Total: $ ' + sum + '</strong>');  
-    };
 
     //Asociar evento de click del boton Enviar al comportamiento del formulario
     $("#Evniar").click(function () {
@@ -64,11 +50,10 @@
     });
 
     //función que inicializa el google maps
-    initialization() 
+    initialization();
 
-  
-    
 });
+
 //Función de envío del formulario y notificación al usuario
 function enviarForm() {
     valido = validarFormulario();
@@ -120,10 +105,28 @@ function validarFormulario() {
     }
     return false;
 }
+//Función para el cálculo del monto total del carrito.
+function calcularTotal() {
+    var sum = 0;
+    // Iterar por cada elemento de la lista
+    $(".precio").each(function () {
+
+        var value = $(this).text();
+        // Hacer la suma sólo si es un valor numérico
+        if (!isNaN(value) && value.length != 0) {
+            sum += parseFloat(value);
+        }
+    });
+    //Asignar el valor al casillero del Total
+    $('#totalCarrito').html('<strong> Total: $ ' + sum + '</strong>');
+    document.getElementById("totalCarrito").setAttribute('value', sum);
+
+}
 
 function validarMontoPago() {
     var monto = document.getElementById("montoEfectivo").value;
-    if (monto === "") {
+    var totalAPagar = document.getElementById("totalCarrito").getAttribute('value');
+    if (monto === "" || monto < totalAPagar) {
         return false;
     } else {
         return true;
@@ -162,7 +165,7 @@ function validarTarjetaVisa() {
         alert("Es una tarjeta Visa. Pago Aceptado!");
         return true;
     }
-    else { alert(ccErrors[ccErrorNo]); return false; };
+    else { alert(ccErrors[ccErrorNo]); return false; }
 }
 //Definicion de variables globales para el google maps
 var latLng;
